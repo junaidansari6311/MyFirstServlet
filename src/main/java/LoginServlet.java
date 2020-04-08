@@ -14,13 +14,15 @@ import java.io.PrintWriter;
 public class LoginServlet extends HttpServlet {
 
     static String VALID_NAME = "^[A-Z]{1}[a-z]{2,}$";
+    static String VALID_PASSWORD = "^(?=.*[A-Z])(?=.*[0-9])(?=[^@|#|$|%|&]*[@|#|$|%|&][^@|#|$|%|&]*$)[A-Za-z0-9@#$%^&]{8,}$";
+
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
 
-        if(username.matches(VALID_NAME) && password.equals("junaid123")){
+        if(username.matches(VALID_NAME) && password.matches(VALID_PASSWORD)){
             request.setAttribute("username",username);
             request.getRequestDispatcher("loginSuccess.jsp").forward(request,response);
         }else {
