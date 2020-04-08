@@ -1,6 +1,5 @@
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebInitParam;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -10,23 +9,19 @@ import java.io.PrintWriter;
 
 @WebServlet(
         description = "Login Servlet Testing",
-        urlPatterns = {"/loginServlet"},
-        initParams = {
-                @WebInitParam(name = "user",value = "Junaid"),
-                @WebInitParam(name = "password",value = "junaid@123")
-        }
+        urlPatterns = {"/loginServlet"}
 )
 public class LoginServlet extends HttpServlet {
+
+    static String VALID_NAME = "^[A-Z]{1}[a-z]{2,}$";
+
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String user = request.getParameter("user");
-        String pwd = request.getParameter("pwd");
+        String username = request.getParameter("username");
+        String password = request.getParameter("password");
 
-        String userName = getServletConfig().getInitParameter("user");
-        String password = getServletConfig().getInitParameter("password");
-
-        if(userName.equals(user)&&password.equals(pwd)){
-            request.setAttribute("user",user);
+        if(username.matches(VALID_NAME) && password.equals("junaid123")){
+            request.setAttribute("username",username);
             request.getRequestDispatcher("loginSuccess.jsp").forward(request,response);
         }else {
             RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher("/login.html");
