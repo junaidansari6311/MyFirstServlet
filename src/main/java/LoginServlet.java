@@ -16,7 +16,6 @@ public class LoginServlet extends HttpServlet {
     static String VALID_NAME = "^[A-Z]{1}[a-z]{2,}$";
     static String VALID_PASSWORD = "^(?=.*[A-Z])(?=.*[0-9])(?=[^@|#|$|%|&]*[@|#|$|%|&][^@|#|$|%|&]*$)[A-Za-z0-9@#$%^&]{8,}$";
 
-
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String username = request.getParameter("username");
